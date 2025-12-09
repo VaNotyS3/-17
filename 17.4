@@ -1,0 +1,21 @@
+struct Weather
+    {
+        public string City;
+        public double? Temp;
+        public override string ToString()
+        {
+            if (Temp == null) { return $"{City} нет данных температура снизу"; }
+            else { return $"{City} {Temp} "; }
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            var w1 = new Weather { City = "msk", Temp = 333 };
+            var w2 = new Weather { City = "cochi", Temp = null };
+            Console.WriteLine(w1);
+            Console.WriteLine(w2);
+            Console.WriteLine(w2.Temp ?? -999);
+        }
+    }
