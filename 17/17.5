@@ -1,0 +1,32 @@
+enum EmployementStatus { Active, OnLeave, Terminated }
+    class Employee
+    {
+        public string Name;
+        public DateTime? HireDate;
+        public EmployementStatus Status;
+        public int GetYearsWorked()
+        {
+            if(HireDate == null) {  return -1; }
+            DateTime now = DateTime.Now;
+            int years = now.Year - HireDate.Value.Year;
+            if (now < HireDate.Value.AddYears(years)) { years--; } return years;
+        }
+        public override string ToString()
+        {
+            string yearsText = HireDate == null ? "не указан" $"{GetYearsWorked()} лет";
+            return $"{Name} статус {Status} стаж {yearsText}";
+
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            var emp = new Employee { Name="петя", HireDate = new DateTime(2020, 3, 15), Status = EmployementStatus.Active };
+            Console.WriteLine(emp.GetYearsWorked());
+            emp.HireDate = null;
+            Console.WriteLine(emp.GetYearsWorked());
+            Console.WriteLine(emp);
+        }
+    }
